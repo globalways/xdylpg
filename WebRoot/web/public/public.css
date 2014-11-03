@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+.container
+{
+	position:relative;
+	width:inherit;
+	margin-bottom:20px;
+}
+#head
+{
+	background:#4386c6;
+	margin:0px;
+	
+}
+hr
+{
+	border:1px dotted #dadada;
+	margin:0px;
+}
+#addr,#tel
+{
+	font:12px 微软雅黑;
+	color:#c7e4ff;
+}
+span.theme
+{
+	color:#4386c6;
+	font-size:20px;
+	font-family:黑体;
+	font-weight:bold;
+}
+#basic-intro
+{
+	min-height:150px;
+}
+#basic-intro .text-intro
+{
+	width:600px;
+	float:left;
+}
+p
+{
+	font:14px 微软雅黑;	
+}
+#basic-intro .img-map
+{
+	width:250px;
+	padding:0px 20px 0px 20px;
+	border-left:1px solid #dadada;
+	float:right;
+}
+#slider
+{
+	height:400px;
+	margin-top:1px;
+	margin-bottom:20px;
+	position: relative;
+    overflow: hidden;
+}
+#slider ul
+{
+	margin:0px;
+}

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+    
+	<constant name="struts.i18n.encoding" value="utf-8"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.multipart.maxSize" value="5242880" />
+    <constant name="struts.multipart.saveDir" value="/temp" /> 
+    <constant name="struts.objectFactory" value="spring" />
+    <constant name="struts.objectFactory.spring.autoWire.alwaysRespect" value="true" />
+   
+    
+    
+    <package name="xdylpg" extends="struts-default">
+		<!-- 配置自定义拦截器LoginedCheckInterceptor  -->
+		<interceptors>
+			<interceptor name="loginedCheck" class="com.xdylpg.struts.interceptor.LoginedCheckInterceptor"/>
+		</interceptors>	    
+   		<default-action-ref name="notfound"></default-action-ref>  
+		<!-- 定义全局result -->
+		<global-results>
+			<!-- 定义名为exception的全局result -->
+		    <result name="exception">/exception.jsp</result>
+		    <result name="tologin">/admin/login.jsp</result>
+		    <result name="noprim">/admin/error.htm</result>
+		    <result name="notfound">/404.jsp</result>
+		    <result name="error" type="redirect">
+		        <param name="location">/error.jsp</param>
+		        <param name="actionMSG">${actionMSG}</param>
+		    </result>
+		</global-results>
+
+		<!-- 定义全局异常映射 -->
+		<global-exception-mappings>
+			<!-- 捕捉到Exception异常(所有异常)时跳转到exception所命名的视图上 -->
+			<exception-mapping exception="java.lang.Exception" result="exception"/>
+		</global-exception-mappings>
+        <action name="notfound">  
+            <result>/404.jsp</result>  
+        </action>
+    </package>
+    
+    
+    <package name="site" namespace="/" extends="xdylpg">
+        <action name="list" class="siteAction" method="list">
+           <result>list.jsp</result>
+        </action>
+        <action name="index" class="siteAction">
+            <result>index.jsp</result>
+        </action>
+        <action name="admin">
+            <result>/admin/login.jsp</result>
+        </action>
+        <action name="contact">
+            <result>contactus.jsp</result>
+        </action>
+        <action name="about">
+            <result>about.jsp</result>
+        </action>
+        
+        <action name="fb" class="fbAction" method="save">
+        </action>
+        <action name="aplct" class="aplctAction" method="save">
+        </action>
+        
+        
+        <action name="login">
+            <result>/admin/login.jsp</result>
+            <interceptor-ref name="loginedCheck"/>
+			<interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="logout" class="busAdminAction" method="logout">
+         	<result type="redirectAction">login</result> 
+        </action>
+        
+        <!-- password process action -->
+        <action name="forgotpassword" class="busAdminAction" method="forgotpassword">
+            <result>/resetpw/forgotpassword.jsp</result>
+        </action>
+        <action name="resetPassword" class="busAdminAction" method="resetPassword">
+            <result type="redirectAction">login</result> 
+        </action>
+        <action name="*" class="busAdminAction" method="vcode_{1}">
+            <result>/resetpw/sendemailsuccess.jsp</result>
+            <result name="toResetPw">/resetpw/resetpassword.jsp</result>
+        </action>
+    </package>
+    
+	<!-- 前台PACKAGE -->
+    <package name="web" namespace="/web" extends="xdylpg">
+        <action name="save" class="com.test.PsuAction" method="savePsu">
+            <result name="success">
+                /index.jsp
+            </result>
+        </action>
+        <action name="psu-home" class="psuAction" method="home">
+            <result>/web/public/public.jsp</result>
+        </action>
+        <action name="shop-home" class="shopAction" method="home">
+            <result>/web/shop/shop2.jsp</result>
+        </action>
+        <action name="com-*" class="cbInfoAction" method="{1}">
+            <result>/web/com/wrapper.jsp</result>
+            <result name="home">/web/com/index.jsp</result>
+        </action>
+    </package>
+    
+    <!-- 后台管理PACKAGE -->
+    <package name="admin" namespace="/admin" extends="xdylpg">
+        <!-- 后系统管理入口 -->
+        <action name="login" class="busAdminAction" method="login">
+            <result>/admin/home.jsp</result>
+            <result name="login" type="redirectAction">
+                <param name="namespace">/</param>
+                <param name="actionName">login</param>
+                <param name="r">error</param>
+			</result>
+			<interceptor-ref name="loginedCheck"/>
+			<interceptor-ref name="defaultStack"/>
+        </action>
+		<action name="admin_*" class="busAdminAction" method="{1}">
+			<result>/admin/{1}.jsp</result>
+			<result name="input">/admin/{1}.jsp</result>			
+			<result name="index">/admin/index.jsp</result>
+			<result name="login">/admin/login.jsp</result>
+			<result name="toBrowseBusAdmin" type="redirectAction">
+				<param name="actionName">admin_browseBusAdmin</param>
+				<param name="pageNo">1</param>
+		        <param name="pageSize">10</param>
+				<param name="actionMsg">${actionMsg}</param>
+			</result>
+			<result name="handleaplct" type="chain">
+			    <param name="actionName">aplct-handle</param>
+			</result>
+			<result name="toUserProfile" type="redirectAction">
+			    <param name="namespace">/user</param>
+			    <param name="actionName">profile</param>
+			</result>
+			<!-- <interceptor-ref name="loginedCheck"/>
+			<interceptor-ref name="defaultStack"/> -->
+		</action>
+		
+		<!-- 配置shop psu cbinfo action -->
+		<action name="shop_*" class="shopAction" method="{1}">
+		    <result>/admin/{1}.jsp</result>
+		    <result name="toBrowseShop" type="redirectAction">
+		        <param name="actionName">shop_browseShop</param>
+		        <param name="pageNo">1</param>
+		        <param name="pageSize">10</param>
+		    </result>
+		    <result name="toUserApp" type="redirectAction">
+		        <param name="namespace">/user</param>
+		        <param name="actionName">app</param>
+		    </result>
+		</action>
+		
+		<action name="psu_*" class="psuAction" method="{1}">
+			<result>/admin/{1}.jsp</result>
+			<result name="edit">/admin/SJtemplate/ggdw.jsp</result>
+		    <result name="toBrowsePsu" type="redirectAction">
+		        <param name="actionName">psu_browsePsu</param>
+		        <param name="pageNo">1</param>
+		        <param name="pageSize">10</param>
+		    </result>		    
+		</action>
+		
+		<action name="cbInfo_*" class="cbInfoAction" method="{1}">
+			<result>/admin/{1}.jsp</result>
+		    <result name="toBrowseCBInfo" type="redirectAction">
+		        <param name="actionName">cbInfo_browseCBInfo</param>
+		        <param name="pageNo">1</param>
+		        <param name="pageSize">10</param>
+		    </result>
+		    <result name="toUserApp" type="redirectAction">
+		        <param name="namespace">/user</param>
+		        <param name="actionName">app</param>
+		    </result>		    
+		</action>
+		<action name="upload" class="psuAction" method="uploadImg">
+		</action>
+		
+		<!-- upload -->
+		<action name="ul-*" class="uploader" method="{1}">
+		    
+		</action>
+		
+		
+		<!--l_f = load form 加载商家模板 ; 参数c(category id 必选);参数b(business id 可选);-->
+		<action name="l_f" class="categoryAction" method="loadTemplate">
+		    <result>/admin/addSJForm.jsp</result>
+		</action>
+		
+		<action name="category-*" class="categoryAction" method="{1}">
+		    <result>/admin/category.jsp</result>
+		    <result name="choose">/admin/categoryChoose.jsp</result>
+		    <result name="index" type="redirectAction">
+		        <param name="actionName">category-index</param>
+		    </result>
+		</action>
+		
+		<action name="com-ccs-*" class="ccsAction" method="{1}">
+		    <result>/admin/gsqy_main.jsp</result>
+		    <result name="toBrowseCCS" type="redirectAction">
+		        <param name="actionName">com-ccs-browse</param>
+		    </result>
+		</action>
+		
+		
+		<!-- company page content;  -->
+		<action name="com-cpc-*" class="cpcAction" method="{1}">
+		    <result>/admin/gsqy_main.jsp</result>
+		   	<result name="toBrowseCPC" type="redirectAction">
+		    	<param name="actionName">com-cpc-browse</param>
+		    	<param name="sort">${browseSort}</param>
+		    </result>
+		    <result name="carousel" type="redirectAction">
+		        <param name="actionName">com-cpc-carousel</param>
+		    </result>
+		</action>
+		
+		
+		<action name="fb-*" class="fbAction" method="{1}">
+            <result>/admin/fb{1}.jsp</result>
+            <result name="list" type="redirectAction">
+                <param name="actionName">fb-list</param>
+            </result>
+        </action>
+         <action name="aplct-*" class="aplctAction" method="{1}">
+            <result>/admin/aplct{1}.jsp</result>
+            <result name="list" type="redirectAction">
+                <param name="actionName">aplct-list</param>
+            </result>
+        </action>
+		
+		
+    </package>
+    
+    <package name="user" namespace="/user" extends="xdylpg">
+        
+        <action name="ul-*" class="uploader" method="{1}">
+		    
+		</action>
+		
+        <action name="*" class="userAction" method="{1}">
+            <result type="chain">
+                <param name="namespace">/admin</param>
+                <param name="actionName">l_f</param>
+                <param name="b">${bid}</param>
+                <param name="c">${cid}</param>
+            </result>
+            <result name="app">
+                frame.jsp
+            </result>
+            <result name="profile">
+                profile.jsp
+            </result>
+            <result name="home">
+                home.jsp
+            </result>
+            <result name="resetpw">
+                reset.jsp
+            </result>                
+            <result name="shopsave" type="chain">
+                <param name="namespace">/admin</param>
+                <param name="actionName">shop_addShop</param>
+            </result>
+            <result name="cbinfosave" type="chain">
+                <param name="namespace">/admin</param>
+                <param name="actionName">cbInfo_addCBInfo</param>
+            </result>
+            <result name="toUpdateBusAdmin" type="chain">
+                <param name="namespace">/admin</param>
+                <param name="actionName">admin_updateBusAdmin</param>
+            </result>
+        </action>
+        
+    </package>
+    
+    <package name="ueditor" namespace="/admin/ueditor" extends="xdylpg">
+        
+        <action name="com-cpc-*" class="cpcAction" method="{1}">
+		    <result>/admin/gsqy_main.jsp</result>
+		   	<result name="toBrowseCPC" type="redirectAction">
+		    	<param name="actionName">com-cpc-browse</param>
+		    	<param name="sort">${browseSort}</param>
+		    </result>
+		</action>
+    </package>
+
+   <!--  <include file="example.xml"/> -->
+
+    <!-- Add packages here -->
+
+</struts>

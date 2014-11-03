@@ -1,0 +1,140 @@
+@CHARSET "UTF-8";
+
+
+.hero-unit{
+	background-image:url(../img/searchbg.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+
+.nav-hover{
+	
+	background-color: #eee;
+}
+.nav-hover > a{
+	display: block;
+	width: 190px \9;
+	margin: 0 0 -1px;
+	padding: 8px 14px;
+	border-right: 1px solid #eee;
+}
+.bs-docs-sidenav
+{
+	position:relative;
+	z-index:99;
+}
+.bs-docs-sidenav .nav-normal a{
+	display: block;
+	width: 190px \9;
+	margin: 0 0 -1px;
+	padding: 8px 14px;
+	border: 1px solid #e5e5e5;
+}
+
+.bs-docs-sidenav .nav-active{
+	background-color: #eee;
+}
+.bs-docs-sidenav .nav-active a{
+	display: block;
+	width: 190px \9;
+	margin: 0 0 -1px;
+	padding: 8px 14px;
+	border: 1px solid #eee;
+}
+
+
+#nav-area
+{
+	background-color: #eee;
+	min-height: 147px;
+	/* left: -582px; */
+	margin-left: 300px;
+	padding: 15px;
+	width: 567px;
+	position: absolute;
+	z-index:9;
+	display:none;
+	border-top:1px solid #e5e5e5;
+	border-right:3px solid #E7401D;
+	border-bottom:1px solid #e5e5e5;
+}
+.bs-docs-sidenav {
+padding: 0;
+background-color: #fff;
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+-moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+
+/* .bs-docs-sidenav > li:first-child > a {
+-webkit-border-radius: 6px 6px 0 0;
+-moz-border-radius: 6px 6px 0 0;
+border-radius: 6px 6px 0 0;
+} */
+
+/* .bs-docs-sidenav > li > a {
+width: 230px \9;
+}
+.bs-docs-sidenav > li > a {
+display: block;
+width: 190px \9;
+margin: 0 0 -1px;
+padding: 8px 14px;
+border: 1px solid #e5e5e5;
+}
+
+.bs-docs-sidenav > li > a:hover {
+display: block;
+width: 190px \9;
+margin: 0 0 -1px;
+padding: 8px 14px;
+border-right: 1px solid #eee;
+} */
+
+.bs-docs-sidenav .icon-chevron-right {
+float: right;
+margin-top: 2px;
+margin-right: -6px;
+opacity: .25;
+}
+.sub-category
+{
+	margin-bottom:20px;
+}
+.sub-category span
+{
+	border-right: 1px solid #ccc;
+	padding: 0px 5px 0px 5px;
+}
+
+.list-item{
+	padding:10px;
+	height: 150px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+.list-item:hover{
+	/* border:1px solid #E7401D; */
+}
+.item-head:hover{
+	color:#E7401D;
+	cursor:pointer;
+}
+
+.item-logo{
+	width:20%;
+}
+.item-intr{
+	font-size:8px;
+	line-height:15px;
+	width:78%;
+}
+.item-foot{
+	background: #eee;
+	margin-top:5px;
+}

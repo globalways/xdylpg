@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/aop 
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- 开启注解处理器 -->
+    <context:annotation-config/>
+    
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:mysql://localhost:3306/xdylpg?useUnicode=true&amp;characterEncoding=utf8</value>
+		</property>
+		<property name="user">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>123456A</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>20</value>
+		</property>
+		<property name="minPoolSize">
+			<value>2</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>2</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>20</value>
+		</property>
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>com/xdylpg/ORM/Psu.hbm.xml</value>
+				<value>com/xdylpg/ORM/Category.hbm.xml</value>
+				<value>com/xdylpg/ORM/BusAdmin.hbm.xml</value>
+				<value>com/xdylpg/ORM/CBInfo.hbm.xml</value>
+				<value>com/xdylpg/ORM/Shop.hbm.xml</value>
+				<value>com/xdylpg/ORM/Shoppro.hbm.xml</value>
+				<value>com/xdylpg/ORM/Auth.hbm.xml</value>
+				<value>com/xdylpg/ORM/UnitImg.hbm.xml</value>
+				<value>com/xdylpg/ORM/Comconsor.hbm.xml</value>
+				<value>com/xdylpg/ORM/Cpcontent.hbm.xml</value>
+				<value>com/xdylpg/ORM/Advice.hbm.xml</value>
+				<value>com/xdylpg/ORM/Application.hbm.xml</value>
+				<value>com/xdylpg/ORM/Vcode.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			所有以browse、list、load、get及 is开头的业务逻辑方法均不需要事务控制且只读
+			<tx:method name="browse*" propagation="NOT_SUPPORTED" read-only="true"/>
+			<tx:method name="list*" propagation="NOT_SUPPORTED" read-only="true"/>
+			<tx:method name="load*" propagation="NOT_SUPPORTED" read-only="true"/>
+			<tx:method name="get*" propagation="NOT_SUPPORTED" read-only="true"/>
+			<tx:method name="is*" propagation="NOT_SUPPORTED" read-only="true"/>
+			设置所有方法均进行事务控制，如果当前没有事务，则新建一个事务
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice> -->
+		<!-- 基于AOP技术的事务管理实现 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+	<aop:config>
+		<!-- 定义一个事务切入点,拦截com.eportal.service.impl包中所有类的所有方法 -->
+		<!-- <aop:pointcut id="transactionPointcut" expression="execution(* com.eportal.service.impl.*.*(..))" />
+		引用txAdvice事务通知
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="transactionPointcut"/> -->
+		
+		
+		<aop:pointcut expression="execution(* com.xdylpg.admin.*.*(..))" id="adminpointcut"  />
+		<aop:aspect id="abc" ref="authInterceptor" >
+			<aop:before method="auth" pointcut-ref="adminpointcut" ></aop:before>
+		</aop:aspect>
+	</aop:config>	
+
+	<!-- 装配HibernateTemplate实例 -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<constructor-arg ref="sessionFactory"/>
+	</bean>
+	    <!-- 装配通用数据库访问类BaseDAOImpl -->    
+	<bean id="dao" class="com.test.BaseDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
+	
+	<bean id="authInterceptor" class="com.xdylpg.struts.interceptor.AuthAopInterceptor">
+	</bean>
+	
+	<bean id="vcodeService" class="com.xdylpg.service.impl.VcodeServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	<bean id="psuService" class="com.xdylpg.service.impl.PsuServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	<bean id="psuAction" class="com.xdylpg.struts.action.PsuAction" scope="prototype">
+		<property name="psuService" ref="psuService" />
+		<property name="unitImgService" ref="unitImgService" />
+	</bean>
+	
+		<!-- 商家分类服务categoryService -->
+	<bean id="categoryService" class="com.xdylpg.service.impl.CategoryServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	
+		<!-- 商铺管理员service -->
+	<bean id="busAdminService" class="com.xdylpg.service.impl.BusAdminServiceImpl" scope="prototype">
+		<property name="dao" ref="dao" />
+	</bean>
+		<!-- 商铺管理员action -->
+	<bean id="busAdminAction" class="com.xdylpg.admin.BusAdminAction" scope="prototype">
+		<property name="service" ref="busAdminService" />
+		<property name="vs" ref="vcodeService" />
+	</bean>
+
+	  <!-- 分类服务action -->
+	<bean id="categoryAction" class="com.xdylpg.admin.CategoryAction" scope="prototype">
+		<property name="categoryService" ref="categoryService" />
+		<property name="shopService" ref="shopService" />
+		<property name="cbInfoService" ref="cbInfoService" />
+		<property name="psuService" ref="psuService" />
+	</bean>
+	
+		<!-- 公司基本信息服务  -->
+	<bean id="cbInfoService" class="com.xdylpg.service.impl.CBInfoServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	
+	<bean id="cbInfoAction" class="com.xdylpg.struts.action.CBInfoAction" scope="prototype">
+		<property name="ccsService" ref="ccsService"/>
+		<property name="cbInfoService" ref="cbInfoService" />
+		<property name="service" ref="cpcService"/>
+		<property name="busAdminService" ref="busAdminService" />
+	</bean>
+	
+		<!-- 商家、生活服务类 -->
+	<bean id="shopService" class="com.xdylpg.service.impl.ShopServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	<bean id="shopAction" class="com.xdylpg.struts.action.ShopAction" scope="prototype">
+		<property name="shopService" ref="shopService" />
+		<property name="proService" ref="proService" />
+		<property name="busAdminService" ref="busAdminService" />
+	</bean>
+	
+	<bean id="unitImgService" class="com.xdylpg.service.impl.UnitImgServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	<bean id="proService" class="com.xdylpg.service.impl.ProServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	<bean id="ccsService" class="com.xdylpg.service.impl.CCSServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	<bean id="ccsAction" class="com.xdylpg.admin.CCSAction" scope="prototype">
+		<property name="ccsService" ref="ccsService"/>
+	</bean>
+	
+	<bean id="cpcService" class="com.xdylpg.service.impl.CPContentServiceImpl">
+		<property name="dao" ref="dao"/>
+	</bean>
+	<bean id="cpcAction" class="com.xdylpg.admin.CPCAction" scope="prototype">
+		<property name="service" ref="cpcService"/>
+		<property name="ccs" ref="ccsAction"/>
+		<property name="s" ref="cbInfoService"/>
+	</bean>
+	<bean id="siteService" class="com.xdylpg.service.impl.SiteServiceImpl">
+		<property name="dao" ref="dao"/>
+	</bean>
+	<bean id="siteAction" class="com.xdylpg.struts.action.SiteAction" scope="prototype">
+		<property name="siteService" ref="siteService" />
+		<property name="categoryService" ref="categoryService" />
+	</bean>
+	
+	<bean id="fbService" class="com.xdylpg.service.impl.FbServiceImpl">
+		<property name="dao" ref="dao"/>
+	</bean>
+	
+	<bean id="fbAction" class="com.xdylpg.struts.action.FeedbackAction" scope="prototype">
+		<property name="fbService" ref="fbService"/>
+	</bean>
+	
+	<bean id="aplctService" class="com.xdylpg.service.impl.AplctServiceImpl">
+		<property name="dao" ref="dao" />
+	</bean>
+	<bean id="aplctAction" class="com.xdylpg.struts.action.AplctAction" scope="prototype">
+		<property name="aplctService" ref="aplctService" />
+	</bean>
+	<bean id="uploader" class="com.xdylpg.struts.action.Uploader" scope="prototype">
+	</bean>
+	
+	<bean id="userAction" class="com.xdylpg.struts.action.UserAction" scope="prototype">
+	</bean>
+</beans>
