@@ -73,8 +73,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	用户名或密码错误！
 		</div>
 		<%} %>
-		<input type="text" class="input-block-level" placeholder="验证码 点击图片可更换" name="captcha" />
-		<img id="captcha" src="<%=basePath %>vd.png" onclick="changeImage()" />
+			<input type="text" class="input-medium" placeholder="验证码 点击图片可更换" name="captcha" />
+			<span class="help-inline"><img id="captcha" src="<%=basePath %>vd.png" onclick="changeImage()" style="
+		    width: 100px;height: 36px;"></span>
+			<%-- <img id="captcha" src="<%=basePath %>vd.png" onclick="changeImage()" /> --%>
+		
         <%--<label class="checkbox">
           <input type="checkbox" value="remember-me" name=""> 下次自动登录
         </label>
