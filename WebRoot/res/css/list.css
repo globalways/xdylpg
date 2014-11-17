@@ -34,6 +34,7 @@
 
 .bs-docs-sidenav .nav-active{
 	background-color: #eee;
+	border-left: 3px solid #E7401D;
 }
 .bs-docs-sidenav .nav-active a{
 	display: block;
@@ -103,14 +104,24 @@ opacity: .25;
 }
 .sub-category
 {
+	background-repeat: no-repeat;
+	background-image: url(../img/big_01.png);
+	background-position: right top;
 	margin-bottom:20px;
 }
 .sub-category span
 {
-	border-right: 1px solid #ccc;
 	padding: 0px 5px 0px 5px;
 }
 
+.sub-category-title{
+	margin-bottom: 30px;
+	margin-top: 0px;
+}
+span.min-item.span3 {
+margin-bottom: 5px;
+margin-left: 0px;
+}
 .list-item{
 	padding:10px;
 	height: 150px;

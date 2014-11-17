@@ -124,17 +124,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            		{
 	            			Category sc = si.next();
 	            	 %>
-          			<div class="sub-category">
-			            <h4><%=sc.getBcname() %><small></small></h4>
+          			<div class="sub-category row-fluid">
+			            <h4 class="sub-category-title"><%=sc.getBcname() %><small></small></h4>
 			            <%
 		            			ArrayList<Category> tl = map2.get(sc);
 		            			if(tl != null)
 		            			for(Category tc : tl)
 		            			{
 		            		 %>
-			           	 <span><a href="<%=basePath %>list?type=<%=tc.getBcnum() %>"> <%=tc.getBcname() %></a></span>
+			           	 <span class='min-item span3'><a href="<%=basePath %>list?type=<%=tc.getBcnum() %>"> <%=tc.getBcname() %></a></span>
 			           	 <%} %>
-			            <span style="border:0px;"><a href="#">其他>></a></span>
+			            <span class='min-item span3' style="border:0px;"><a href="#">其他>></a></span>
 			         </div>
 			          <%} %>
           		</div>
