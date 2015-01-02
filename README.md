@@ -16,14 +16,14 @@ API list
         "body":{
             "xxx": xxx, int
             "xxx": "xxx", string
-            "xxx": [   array
+            "xxx": {[   array
                 {},
                 {}
-            ]
+            ]}
         }
     }
 ```
-* /v1/store/brush [get]: 筛选商铺
+* /v1/stores/brush [get]: 筛选商铺
 ```
     请求参数:
         {
@@ -38,8 +38,8 @@ API list
             "keywordsearch": "关键词" string 如果为空，忽略字段。搜索商铺name和商品name
         }
     返回body(通用返回结构中的body):
-        {
-            "stores":[
+        "body":{
+            "stores":{[
                 {
                     "storeid": 1 int
                     "storename": "xxx" string
@@ -61,5 +61,22 @@ API list
                 },
                 {}
             ]
+            }
+        }
+```
+* /v1/stores/industrys [get]: 商铺行业分类
+```
+    请求参数: 无
+    返回body:
+        "body":{
+            "industry":{
+                [
+                {
+                    "industryid": 1 int
+                    "industryname" "xxx" string
+                },
+                {}
+                ]
+            }
         }
 ```
