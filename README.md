@@ -80,3 +80,30 @@ API list
             }
         }
 ```
+* /v1/stores/id/:id [get]: 商铺详情
+```
+    请求参数:
+        :id: 1 int
+    返回body:
+        "body":{
+            "storeid": 1    int
+            "storename": "商铺名称" string
+            "storedesc": "商铺描述" string
+            "storegps": "75.9398,83.858843" string
+            "storeaddress": "中国北京天安门"   string
+            "industryid": 1 int
+            "industryname": xx, string
+            "avatar": "http://pic.baidu.com/jjsd.jpg"   string
+            "storephone": "13847584934" string
+            "producthotlimit": 20   int (商铺中的某一商品销量超过20就标志为hot，商铺属性)
+            "distance": 100 int
+            "productstags": [
+                {
+                    "tagid": 1, int
+                    "tagname": "分类", string
+                    "productscount": 10, int
+                },
+                {}
+            ]
+        }
+```
