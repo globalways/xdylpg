@@ -107,3 +107,83 @@ API list
             ]
         }
 ```
+
+商家APP API
+===========
+* /v1/store/id [get]: 商铺详情
+```
+    请求参数:
+        id: 18610889275 int
+    返回body:
+        "body":{
+            "storeid": 1    int
+            "storename": "商铺名称" string
+            "storealias" "商铺别名" string
+            "storedesc": "商铺描述" string
+            "storegps": "75.9398,83.858843" string
+            "storeaddress": "中国北京天安门"   string
+            "storephone": "028-34234234" string
+            "industryid": 1 int
+            "industryname": xx, string
+            "avatar": "http://pic.baidu.com/jjsd.jpg"   string
+            "administratorid": 1 int
+            "ownerid" 1 int
+            "producthotlimit": 20   int (商铺中的某一商品销量超过20就标志为hot，商铺属性)
+            "status" 0 boolean (状态信息，标示商铺是否启用)
+            "hit" 342 int (总访问量)
+            "storenews" "双十一最新优惠" string
+            "productstags": [
+                {
+                    "tagid": 1, int
+                    "tagname": "分类", string
+                    "productscount": 10, int
+                },
+                {}
+            ]
+        }
+```
+
+* /v1/store/new [post]: 添加商铺
+```
+    request:
+        "storename": "商铺名称" string
+        "storedesc": "商铺描述" string
+        "storegps": "75.9398,83.858843" string
+        "storeaddress": "中国北京天安门"   string
+        "storephone": "028-34234234" string
+        "industryid": 1 int
+        "avatar": "http://pic.baidu.com/jjsd.jpg"   string
+        "administratorid": 1 int
+        "ownername" "张三" string
+        "producthotlimit": 20   int
+        "status" 1 boolean (状态信息，标示商铺是否启用)
+        "storenews" "双十一最新优惠" string
+    response: 
+        status:
+```
+
+* /v1/store/update [post]: 修改商铺
+```
+    request:
+        "storename": "商铺名称" string
+        "storedesc": "商铺描述" string
+        "storegps": "75.9398,83.858843" string
+        "storeaddress": "中国北京天安门"   string
+        "storephone": "028-34234234" string
+        "industryid": 1 int
+        "avatar": "http://pic.baidu.com/jjsd.jpg"   string
+        "administratorid": 1 int
+        "ownerid" 1 int
+        "producthotlimit": 20   int
+        "status" 1 boolean (状态信息，标示商铺是否启用)
+        "storenews" "双十一最新优惠" string
+    response: 
+        status:
+```
+* /v1/store/del [post]: 删除商铺
+```
+    request:
+        "storeid": 1 int
+    response: 
+        status:
+```
