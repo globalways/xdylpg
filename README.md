@@ -112,7 +112,7 @@ API list
 * /v1/store/id [get]: 商铺详情
 ```
     请求参数:
-        id: 18610889275 int
+        hongid: 18610889275 int
     返回body:
         "body":{
             "storeid": 1    int
@@ -126,7 +126,8 @@ API list
             "industryname": xx, string
             "avatar": "http://pic.baidu.com/jjsd.jpg"   string
             "administratorid": 1 int
-            "ownername" 1 int
+            "ownerid" 1 int
+            "ownername" "张三" string
             "producthotlimit": 20   int (商铺中的某一商品销量超过20就标志为hot，商铺属性)
             "status" 0 boolean (状态信息，标示商铺是否启用)
             "hit" 342 int (总访问量)
@@ -159,6 +160,8 @@ API list
         "storenews" "双十一最新优惠" string
     response: 
         status:
+        body:
+            "hongid" 2341342 int 
 ```
 
 * /v1/stores [put]: 修改商铺
@@ -182,7 +185,7 @@ API list
 * /v1/stores [delete]: 删除商铺
 ```
     request:
-        "storeid": 1 int
+        "hongid": 1 int
     response: 
         status:
 ```
