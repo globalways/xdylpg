@@ -53,7 +53,6 @@ API list
                             "productname": "xxx" string
                             "productavatar": "xxx" string //商品图片
                             "productprice": 8.99 double
-                            "productcurrency" "￥" string
                             "productunit": "xxx" string
                         },
                         {}
@@ -127,7 +126,7 @@ API list
             "industryname": xx, string
             "avatar": "http://pic.baidu.com/jjsd.jpg"   string
             "administratorid": 1 int
-            "ownerid" 1 int
+            "ownername" 1 int
             "producthotlimit": 20   int (商铺中的某一商品销量超过20就标志为hot，商铺属性)
             "status" 0 boolean (状态信息，标示商铺是否启用)
             "hit" 342 int (总访问量)
@@ -143,7 +142,7 @@ API list
         }
 ```
 
-* /v1/store/new [post]: 添加商铺
+* /v1/stores [post]: 添加商铺
 ```
     request:
         "storename": "商铺名称" string
@@ -162,7 +161,7 @@ API list
         status:
 ```
 
-* /v1/store/update [post]: 修改商铺
+* /v1/stores [put]: 修改商铺
 ```
     request:
         "storename": "商铺名称" string
@@ -180,7 +179,7 @@ API list
     response: 
         status:
 ```
-* /v1/store/del [post]: 删除商铺
+* /v1/stores [delete]: 删除商铺
 ```
     request:
         "storeid": 1 int
