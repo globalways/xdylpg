@@ -109,11 +109,14 @@ API list
 
 商家APP API
 ===========
-* /v1/store/id [get]: 商铺详情
+* /v1/store/hongid [get]: 商铺详情
 ```
     请求参数:
-        hongid: 18610889275 int
-    返回body:
+       "body":
+       {
+            "fields":["storename","storedesc",...] (可选参数，若有则返回指定字段，若无则返回全部字段)
+       }
+    返回:
         "body":{
             "storeid": 1    int
             "storename": "商铺名称" string
@@ -146,46 +149,99 @@ API list
 * /v1/stores [post]: 添加商铺
 ```
     request:
-        "storename": "商铺名称" string
-        "storedesc": "商铺描述" string
-        "storegps": "75.9398,83.858843" string
-        "storeaddress": "中国北京天安门"   string
-        "storephone": "028-34234234" string
-        "industryid": 1 int
-        "avatar": "http://pic.baidu.com/jjsd.jpg"   string
-        "administratorid": 1 int
-        "ownername" "张三" string
-        "producthotlimit": 20   int
-        "status" 1 boolean (状态信息，标示商铺是否启用)
-        "storenews" "双十一最新优惠" string
+    "body":
+        {
+            "storename": "商铺名称" string
+            "storedesc": "商铺描述" string
+            "hongid": 2341341 string
+            "storegps": "75.9398,83.858843" string
+            "storeaddress": "中国北京天安门"   string
+            "storephone": "028-34234234" string
+            "industryid": 1 int
+            "avatar": "http://pic.baidu.com/jjsd.jpg"   string
+            "administratorid": 1 int
+            "ownername" "张三" string
+            "producthotlimit": 20   int
+            "status" 1 boolean (状态信息，标示商铺是否启用)
+            "storenews" "双十一最新优惠" string
+        }
     response: 
         status:
+        {
+            
+        }
         body:
-            "hongid" 2341342 int 
+        {
+            "storeid":3231431413 int
+        }
+        
 ```
 
-* /v1/stores [put]: 修改商铺
+* /v1/stores/hongid [put]: 修改商铺
 ```
     request:
-        "storename": "商铺名称" string
-        "storedesc": "商铺描述" string
-        "storegps": "75.9398,83.858843" string
-        "storeaddress": "中国北京天安门"   string
-        "storephone": "028-34234234" string
-        "industryid": 1 int
-        "avatar": "http://pic.baidu.com/jjsd.jpg"   string
-        "administratorid": 1 int
-        "ownerid" 1 int
-        "producthotlimit": 20   int
-        "status" 1 boolean (状态信息，标示商铺是否启用)
-        "storenews" "双十一最新优惠" string
+    "body":
+    {
+        "fields":
+        {
+            "storename": "商铺名称" string
+            "storedesc": "商铺描述" string
+            "storegps": "75.9398,83.858843" string
+            "storeaddress": "中国北京天安门"   string
+            "storephone": "028-34234234" string
+            "industryid": 1 int
+            "avatar": "http://pic.baidu.com/jjsd.jpg"   string
+            "administratorid": 1 int
+            "ownerid" 1 int
+            "producthotlimit": 20   int
+            "status" 1 boolean (状态信息，标示商铺是否启用)
+            "storenews" "双十一最新优惠" string
+        }
+    }
     response: 
         status:
 ```
-* /v1/stores [delete]: 删除商铺
+* /v1/stores/hongid [delete]: 删除商铺
 ```
     request:
-        "hongid": 1 int
+
     response: 
         status:
+```
+* /v1/stores/list/hongid [get]: 商铺列表
+```
+    request:
+        "body":{
+            "hongid": 1 int
+            "fields":["storename","storedesc"] string ( 可选参数，查询指定字段)
+            }
+    response: 
+        "body":
+            [
+                {
+                "storename":"XX美食" string
+                ...
+                ...(其他字段参考商铺详情)
+                }，
+                ...
+            ]
+        status:
+```
+
+* /v1/signup/hongid/role [get]: 注册
+```
+    request:
+    
+    response: 
+        "body":""
+        "status":
+```
+
+* /v1/signin/hongid [get]: 登陆
+```
+    request:
+    
+    response: 
+        "body":""
+        "status":
 ```
