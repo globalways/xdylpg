@@ -112,10 +112,9 @@ API list
 * /v1/store/hongid [get]: 商铺详情
 ```
     请求参数:
-       "body":
-       {
-            "fields":["storename","storedesc",...] (可选参数，若有则返回指定字段，若无则返回全部字段)
-       }
+
+        fields=['storename','storedesc',...] (可选参数，若有则返回指定字段，若无则返回全部字段)
+
     返回:
         "body":{
             "storeid": 1    int
@@ -182,21 +181,18 @@ API list
     request:
     "body":
     {
-        "fields":
-        {
-            "storename": "商铺名称" string
-            "storedesc": "商铺描述" string
-            "storegps": "75.9398,83.858843" string
-            "storeaddress": "中国北京天安门"   string
-            "storephone": "028-34234234" string
-            "industryid": 1 int
-            "avatar": "http://pic.baidu.com/jjsd.jpg"   string
-            "administratorid": 1 int
-            "ownerid" 1 int
-            "producthotlimit": 20   int
-            "status" 1 boolean (状态信息，标示商铺是否启用)
-            "storenews" "双十一最新优惠" string
-        }
+        "storename": "商铺名称" string
+        "storedesc": "商铺描述" string
+        "storegps": "75.9398,83.858843" string
+        "storeaddress": "中国北京天安门"   string
+        "storephone": "028-34234234" string
+        "industryid": 1 int
+        "avatar": "http://pic.baidu.com/jjsd.jpg"   string
+        "administratorid": 1 int
+        "ownerid" 1 int
+        "producthotlimit": 20   int
+        "status" 1 boolean (状态信息，标示商铺是否启用)
+        "storenews" "双十一最新优惠" string
     }
     response: 
         status:
