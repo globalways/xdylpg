@@ -109,14 +109,16 @@ API list
 
 商家APP API
 ===========
-* /v1/store/hongid [get]: 商铺详情
+* /v1/store/{hongid}?fields=storename,storedesc[get]: 商铺详情
 ```
     请求参数:
 
-        fields=['storename','storedesc',...] (可选参数，若有则返回指定字段，若无则返回全部字段)
+        无
 
     返回:
-        "body":{
+    {
+        "body":
+        {
             "storeid": 1    int
             "storename": "商铺名称" string
             "storealias" "商铺别名" string
@@ -142,13 +144,19 @@ API list
                 },
                 {}
             ]
+        },
+        "status":
+        {
+            "code":200 int,
+            "msg":"ok" string
         }
+    }
 ```
 
 * /v1/stores [post]: 添加商铺
 ```
     request:
-    "body":
+        "body":
         {
             "storename": "商铺名称" string
             "storedesc": "商铺描述" string
@@ -169,14 +177,9 @@ API list
         {
             
         }
-        body:
-        {
-            "storeid":3231431413 int
-        }
-        
 ```
 
-* /v1/stores/hongid [put]: 修改商铺
+* /v1/stores/{hongid} [put]: 修改商铺
 ```
     request:
     "body":
@@ -197,20 +200,17 @@ API list
     response: 
         status:
 ```
-* /v1/stores/hongid [delete]: 删除商铺
+* /v1/stores/{hongid} [delete]: 删除商铺
 ```
     request:
 
     response: 
         status:
 ```
-* /v1/stores/list/hongid [get]: 商铺列表
+* /v1/stores/list/{hongid}/{role}?fields=storename,storeaddress&page=1&pagesize=10 [get]: 商铺列表
 ```
     request:
-        "body":{
-            "hongid": 1 int
-            "fields":["storename","storedesc"] string ( 可选参数，查询指定字段)
-            }
+        
     response: 
         "body":
             [
@@ -224,7 +224,7 @@ API list
         status:
 ```
 
-* /v1/signup/hongid/role [get]: 注册
+* /v1/signup/{hongid}/{role} [post]: 注册
 ```
     request:
     
@@ -233,7 +233,7 @@ API list
         "status":
 ```
 
-* /v1/signin/hongid [get]: 登陆
+* /v1/signin/{hongid}/{role} [get]: 登陆
 ```
     request:
     
