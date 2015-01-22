@@ -109,7 +109,7 @@ API list
 
 商家APP API
 ===========
-* /v1/store/{hongid}?fields=storename,storedesc[get]: 商铺详情
+* /v1/store/{hongid}?fields=storename,storedesc [get]: 商铺详情
 ```
     请求参数:
 
