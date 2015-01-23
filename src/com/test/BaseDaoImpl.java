@@ -76,7 +76,10 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 		return hibernateTemplate.get(clazz, id);
 	}
 
-	/**加载满足条件的持久化对象*/
+	
+	/**
+	 * return {@code Object} if find the value otherwise return null.	
+	 */
 	public Object loadObject(String hql) {
 		final String hql1 = hql;
 		Object obj = null;

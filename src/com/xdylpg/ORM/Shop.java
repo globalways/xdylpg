@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Shop entity. @author MyEclipse Persistence T
+ * Shop entity.
  */
 
 public class Shop implements java.io.Serializable ,Item {
@@ -14,6 +14,8 @@ public class Shop implements java.io.Serializable ,Item {
 	private Integer shopnum;
 	private Category category;
 	private BusAdmin busAdmin;
+	private String hongid;
+	private Owner owner;
 	private String busname;
 	private String pinyinid;
 	private String busaddr;
@@ -23,6 +25,7 @@ public class Shop implements java.io.Serializable ,Item {
 	private String busml;
 	private String shoptem;
 	private Integer hits;
+	private Integer hotlimit;
 	private Integer status;
 	private String logo;
 	private Set shoppros = new HashSet(0);
@@ -179,6 +182,30 @@ public class Shop implements java.io.Serializable ,Item {
 	@Override
 	public int getID() {
 		return getShopnum().intValue();
+	}
+
+	public String getHongid() {
+		return hongid;
+	}
+
+	public void setHongid(String hongid) {
+		this.hongid = hongid;
+	}
+
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
+
+	public Integer getHotlimit() {
+		return hotlimit;
+	}
+
+	public void setHotlimit(Integer hotlimit) {
+		this.hotlimit = hotlimit;
 	}
 
 }

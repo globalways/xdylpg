@@ -1,12 +1,21 @@
 package com.xdylpg.util;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xdylpg.ORM.Auth;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
+import com.xdylpg.ORM.Auth;
+/**
+ * Tools 
+ * @author wang
+ *
+ */
 public class T {
 	/**
 	 * a discriminant that return boolean;<br>
@@ -55,4 +64,42 @@ public class T {
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 		return basePath;
 	}
+	
+	/**
+	 * return json object if src string is a legal json object.
+	 * @param src
+	 * @return
+	 */
+	public static JSONObject getJSON(String src)
+	{
+		JSONObject result = null;
+		try {
+			result = JSONObject.fromObject(src);
+		} catch (JSONException e) {
+			return null;
+		}
+		return result;
+	}
+	/**
+	 * generate a object of to according to string src<br>
+	 * return null if Class to has no available constructor for String
+	 * @param to
+	 * @param src
+	 * @return Object
+	 */
+	public static Object cast(Class<?> to,String src)
+    {
+    	Constructor[] con = to.getConstructors();
+    	Object result = null;
+    	for(int i=0;i<con.length;i++)
+    	{
+    		try {
+				result = con[i].newInstance(src);
+			} catch (InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException e) {
+				continue;
+			}
+    	}
+    	return result;
+    }
 }

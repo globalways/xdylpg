@@ -13,6 +13,7 @@ public class BusAdmin implements java.io.Serializable {
 	// Fields
 
 	private Integer busadmnum;
+	private Long hongid;
 	private Auth auth;
 	private String admacc;
 	private String admpw;
@@ -30,11 +31,21 @@ public class BusAdmin implements java.io.Serializable {
 	public BusAdmin() {
 	}
 
+	public BusAdmin(Long hongid)
+	{
+		this.hongid = hongid;
+	}
+	public BusAdmin(Long hongid,Auth auth)
+	{
+		this.hongid = hongid;
+		this.auth = auth;
+	}
 	/** full constructor */
-	public BusAdmin(Auth auth, String admacc, String admpw, String admname,
+	public BusAdmin(Long hongid,Auth auth, String admacc, String admpw, String admname,
 			String admtel, String admemail, Integer status, Set psus,
 			Set shops, Set CBInfos) {
 		this.auth = auth;
+		this.hongid = hongid;
 		this.admacc = admacc;
 		this.admpw = admpw;
 		this.admname = admname;
@@ -173,6 +184,14 @@ public class BusAdmin implements java.io.Serializable {
 
 	public void setCBInfos(Set CBInfos) {
 		this.CBInfos = CBInfos;
+	}
+
+	public Long getHongid() {
+		return hongid;
+	}
+
+	public void setHongid(Long hongid) {
+		this.hongid = hongid;
 	}
 
 }

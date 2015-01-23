@@ -23,10 +23,14 @@ public class Tester {
 	
 	public static void mian(String args[])
 	{
-		String url = "127.0.0.1:8080/xdylpg/admin/com-cpc-index";
-	Pattern p = Pattern.compile("*com-[a-z]{3}-[a-z]{3}");
-	Matcher m = p.matcher(url);
-	System.out.println(m.matches());
+		/*String url = "127.0.0.1:8080/xdylpg/admin/com-cpc-index";
+		Pattern p = Pattern.compile("*com-[a-z]{3}-[a-z]{3}");
+		Matcher m = p.matcher(url);
+		System.out.println(m.matches());*/
+		int a = 2;
+		int b = 1;
+		
+		System.out.println(a&b);
 	}
 
 } 

@@ -25,7 +25,7 @@ public class MyStrutsFilter extends StrutsPrepareAndExecuteFilter {
         //不过滤的url  
         String  url = request.getRequestURL().toString();  
         Cookie hasCookie = null;
-        if (url.contains("/ueditor/jsp/")) {  
+        if (url.contains("/ueditor/jsp/") || url.contains("restful")) {  
             chain.doFilter(req, res);  
         }else if( (url.contains("/admin/")&&(!url.contains("login"))) || url.contains("/user/") ){
         	BusAdmin admin = (BusAdmin)request.getSession().getAttribute("admin");

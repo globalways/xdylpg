@@ -71,4 +71,34 @@ public class CBInfoServiceImpl implements ShopService {
 		return dao.countAll("CBInfo");
 	}
 
+	@Override
+	public Object loadObject(String hql) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object loadObject(String hql, String[] fields) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object loadObject(String hql, String[] fields, Long hongid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object loadByHongid(Long hongid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteByHonid(Long hongid) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

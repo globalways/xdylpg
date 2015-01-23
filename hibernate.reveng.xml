@@ -2,74 +2,79 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-	<table name="psu" catalog="xdylpg" class="com.xdylpg.ORM.Psu">
+	<table name="psu" class="com.xdylpg.ORM.Psu">
 		<primary-key>
 			<generator class="com.xdylpg.util.ShopIDGenerator"></generator>
 		</primary-key>
 	</table>
-	<table name="buscat" catalog="xdylpg"
+	<table name="buscat"
 		class="com.xdylpg.ORM.Category">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-	<table name="busadm" catalog="xdylpg"
+	<table name="busadm"
 		class="com.xdylpg.ORM.BusAdmin">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-	<table name="shop" catalog="xdylpg" class="com.xdylpg.ORM.Shop">
+	<table name="shop" class="com.xdylpg.ORM.Shop">
 		<primary-key>
 			<generator class="com.xdylpg.util.ShopIDGenerator"></generator>
 		</primary-key>
 	</table>
-	<table name="cbinfo" catalog="xdylpg"
+	<table name="cbinfo"
 		class="com.xdylpg.ORM.CBInfo">
 		<primary-key>
 			<generator class="com.xdylpg.util.ShopIDGenerator"></generator>
 		</primary-key>
 	</table>
-	<table name="shoppro" catalog="xdylpg"
+	<table name="shoppro"
 		class="com.xdylpg.ORM.Shoppro">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-	<table name="auth" catalog="xdylpg" class="com.xdylpg.ORM.Auth">
+	<table name="auth" class="com.xdylpg.ORM.Auth">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-	<table name="unitimg" catalog="xdylpg"
+	<table name="unitimg"
 		class="com.xdylpg.ORM.UnitImg">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-	<table name="comconsor" catalog="xdylpg"
+	<table name="comconsor"
 		class="com.xdylpg.ORM.Comconsor">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-	<table name="cpcontent" catalog="xdylpg"
+	<table name="cpcontent"
 		class="com.xdylpg.ORM.Cpcontent">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-	<table name="application" catalog="xdylpg" class="Application">
+	<table name="application" class="Application">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-	<table name="advice" catalog="xdylpg">
+	<table name="advice">
 		<primary-key>
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-<table name="vcode" catalog="xdylpg" class="Vcode">
+	<table name="vcode" class="Vcode">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="owner" class="Owner">
 	<primary-key>
 		<generator class="native"></generator>
 	</primary-key>

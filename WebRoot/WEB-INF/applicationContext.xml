@@ -58,6 +58,7 @@
 				<value>com/xdylpg/ORM/Advice.hbm.xml</value>
 				<value>com/xdylpg/ORM/Application.hbm.xml</value>
 				<value>com/xdylpg/ORM/Vcode.hbm.xml</value>
+				<value>com/xdylpg/ORM/Owner.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
